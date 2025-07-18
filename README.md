@@ -17,31 +17,38 @@
 ## DATABASE SCHEMA DESCRIPTION
 
 ### **User**
-- `email` (String, required, unique): User’s email address.
-- `password` (String, required): Hashed password.
+- email: User’s email address (String, required, unique) - meaning user can only have one email and its compulsory.
+- password: Hashed password (String, required) - meaning user must have a password.
 
 ### **Task**
-- `title` (String, required): The task’s title.
-- `description` (String, optional): Details about the task.
-- `status` (String, enum: 'pending', 'in-progress', 'done', default: 'pending'): The current status of the task.
-- `extras` (Mixed, optional): Additional data (e.g., tags, due date, priority).
-- `userId` (ObjectId, required): Reference to the user who owns the task.
-- `createdAt` (Date): Timestamp when the task was created.
-- `updatedAt` (Date): Timestamp when the task was last updated.
+- title: The task’s title  (String, required) - task title must be in string format and is required.
+- description: Details about the task(String, optional) - must be in string format but optional.
+- status: (String, enum: 'pending', 'in-progress', 'done', default: 'pending') - The current status of the task which can only be either in-porgress, done or pending.
+- extras: Additional data  (Mixed, optional) - mixed data types is acceptable here example include tags, due date, priority.
+- userId:  (ObjectId, required) - Reference to the user who owns the task by the Id.
+- createdAt:  (Date) - Timestamp when the task was created.
+- updatedAt: (Date) - Timestamp when the task was last updated.
 
----
 
 ## DEV NOTE: WHAT I WOULD BUILD NEXT IF I HAD MORE TIME
 
-- **User Profile & Settings:** Allow users to update their profile, change password, and manage notification preferences.
-- **Task Reminders & Notifications:** Add due dates and send reminders for upcoming or overdue tasks.
-- **Task Collaboration:** Enable sharing tasks with other users or assigning tasks to team members.
-- **Task Categories/Tags:** Allow users to organize tasks by category or tag for better filtering.
-- **Mobile Responsiveness:** Further improve the mobile experience and add a PWA manifest for installability.
-- **Activity Log:** Track changes to tasks for audit/history.
-- **Better Error Handling & Validation:** More robust feedback for API and UI errors.
-- **Testing:** Add unit and integration tests for both backend and frontend.
-- **CI/CD:** Automate deployment and testing with GitHub Actions or similar.
+- User Profile & Settings: 
+    Allow users to update their profile, change password, and manage notification preferences.
+- Task Reminders & Notifications:
+     Add due dates and send reminders for upcoming or overdue tasks.
+- Task Collaboration: 
+    Enable sharing tasks with other users or assigning tasks to team members.
+- Task Categories/Tags: 
+    Allow users to organize tasks by category or tag for better filtering.
+- Mobile Responsiveness:
+    Further improve the mobile experience and add a PWA manifest for installability.
+
+- Better Error Handling & Validation:** More robust feedback for API and UI errors.
+
+- Testing:
+    Add unit and integration tests for both backend and frontend.
+- CI/CD:
+    Automate deployment and testing with GitHub Actions.
 
 
 ## DEPLOYED APP LINK
