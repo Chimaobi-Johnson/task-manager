@@ -7,12 +7,13 @@ require('dotenv').config();
 
 const app = express();
 
-const allowedOrigins = [
-    'https://task-manager-client-ylr8.onrender.com',
-  ];
+// const allowedOrigins = [
+//     'https://task-manager-client-ylr8.onrender.com',
+//     'http://localhost:8000'
+//   ];
   
 app.use(cors({
-    origin: allowedOrigins,
+    origin: '*',
     credentials: true,
 }));
 

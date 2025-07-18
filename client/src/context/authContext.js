@@ -32,9 +32,11 @@ export const AuthProvider = ({ children }) => {
       return { success: true, data: result.data };
     } catch (err) {
       setAuthError(
-        err.response?.data?.message || "Registration failed. Please try again."
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        "Registration failed. Please try again."
       );
-      return { success: false, error: err.response?.data?.message || "Registration failed. Please try again." };
+      return { success: false, error: err.response?.data?.error || err.response?.data?.message || "Registration failed. Please try again." };
     } finally {
       setAuthLoading(false);
     }
@@ -53,9 +55,11 @@ export const AuthProvider = ({ children }) => {
       return { success: true, data: result.data };
     } catch (err) {
       setAuthError(
-        err.response?.data?.message || "Login failed. Please try again."
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        "Login failed. Please try again."
       );
-      return { success: false, error: err.response?.data?.message || "Login failed. Please try again." };
+      return { success: false, error: err.response?.data?.error || err.response?.data?.message || "Login failed. Please try again." };
     } finally {
       setAuthLoading(false);
     }

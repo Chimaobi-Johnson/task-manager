@@ -6,11 +6,16 @@ exports.register = async (req, res) => {
   await dbConnect();
   const { email, password } = req.body;
   try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User with this email already exists.' });
+    }
     const user = await User.create({ email, password });
     const token = signToken(user);
     res.status(201).json({ token, user: { id: user._id, email: user.email } });
   } catch (err) {
-    res.status(400).json({ error: 'Email already exists' });
+    res.status(500).json({ error: 'Registration failed. Please try again.' });
   }
 };
 
@@ -18,8 +23,12 @@ exports.login = async (req, res) => {
   await dbConnect();
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (!user || !(await user.comparePassword(password))) {
-    return res.status(401).json({ error: 'Invalid credentials' });
+  if (!user) {
+    return res.status(401).json({ error: 'User does not exist.' });
+  }
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) {
+    return res.status(401).json({ error: 'Incorrect password.' });
   }
   const token = signToken(user);
   res.json({ token, user: { id: user._id, email: user.email } });

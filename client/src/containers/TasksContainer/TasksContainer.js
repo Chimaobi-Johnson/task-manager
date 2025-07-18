@@ -62,16 +62,30 @@ const TasksContainer = () => {
     await updateTask(id, { status: currentInProgress ? "pending" : "in-progress" });
   };
 
-  // Filtering and sorting
-  let filteredTasks = tasks;
-  if (statusFilter !== "all") {
-    filteredTasks = filteredTasks.filter(t => t.status === statusFilter);
-  }
-  filteredTasks = filteredTasks.sort((a, b) => {
-    const dateA = new Date(a.createdAt);
-    const dateB = new Date(b.createdAt);
-    return dateOrder === "asc" ? dateA - dateB : dateB - dateA;
-  });
+  // Group and sort tasks by status
+  const groupAndSort = (status) =>
+    tasks
+      .filter((t) => t.status === status)
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateOrder === "asc" ? dateA - dateB : dateB - dateA;
+      });
+
+  const pendingTasks = groupAndSort("pending");
+  const inProgressTasks = groupAndSort("in-progress");
+  const doneTasks = groupAndSort("done");
+
+  // Filtering for statusFilter (if not 'all')
+  const statusGroups = [
+    { title: "Pending", tasks: pendingTasks, key: "pending" },
+    { title: "In Progress", tasks: inProgressTasks, key: "in-progress" },
+    { title: "Done", tasks: doneTasks, key: "done" },
+  ];
+  const groupsToShow =
+    statusFilter === "all"
+      ? statusGroups
+      : statusGroups.filter((g) => g.key === statusFilter);
 
   return (
     <div className="md:max-w-xl mx-auto mt-12 p-6 bg-white md:border border-gray-300 rounded-lg">
@@ -116,22 +130,31 @@ const TasksContainer = () => {
       </div>
       {tasksLoading && <div className="text-center text-gray-500">Updating tasks...</div>}
       {tasksError && <div className="text-center text-red-500">{tasksError}</div>}
-      <ul className="space-y-4">
-        {filteredTasks.map((task, i) => (
-          <TaskItem
-            key={task._id}
-            editingId={editingId}
-            task={task}
-            handleToggleDone={handleToggleDone}
-            handleToggleInProgress={handleToggleInProgress}
-            setEditingValue={setEditingValue}
-            handleUpdate={() => handleUpdate(task._id)}
-            handleEdit={handleEdit}
-            handleDelete={() => handleDelete(task._id)}
-            editingValue={editingValue}
-          />
-        ))}
-      </ul>
+      {/* Grouped Task Lists */}
+      {groupsToShow.map(
+        (group) =>
+          group.tasks.length > 0 && (
+            <div key={group.key} className="mb-6">
+              <h3 className="text-base font-semibold mb-2 text-gray-700">{group.title}</h3>
+              <ul className="space-y-4">
+                {group.tasks.map((task, i) => (
+                  <TaskItem
+                    key={task._id}
+                    editingId={editingId}
+                    task={task}
+                    handleToggleDone={handleToggleDone}
+                    handleToggleInProgress={handleToggleInProgress}
+                    setEditingValue={setEditingValue}
+                    handleUpdate={() => handleUpdate(task._id)}
+                    handleEdit={handleEdit}
+                    handleDelete={() => handleDelete(task._id)}
+                    editingValue={editingValue}
+                  />
+                ))}
+              </ul>
+            </div>
+          )
+      )}
     </div>
   );
 };
