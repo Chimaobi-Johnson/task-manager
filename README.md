@@ -1,29 +1,20 @@
----
-
-# Task Manager – Documentation
+## SETUP INSTRUCTIONS
 
 ## Getting Started
 
 1. **Install dependencies:**  
    From the root folder, run:
-   ```
+   
    npm install
-   ```
-
+   
 2. **Development:**  
    To run both the Express.js backend and the Next.js frontend locally, use:
-   ```
+   
    npm run dev
-   ```
+   
    This will start both servers (backend and frontend) for development.
 
-3. **Production Deployment:**  
-   - Deploy the backend (Express) and frontend (Next.js) as separate services (e.g., on Render).
-   - Set all required environment variables (e.g., `MONGO_URI`, `JWT_SECRET`) in your deployment dashboard.
-
----
-
-## Database Schema Description
+## DATABASE SCHEMA DESCRIPTION
 
 ### **User**
 - `email` (String, required, unique): User’s email address.
@@ -40,7 +31,7 @@
 
 ---
 
-## Dev Note: What I'd Build Next If I Had More Time
+## DEV NOTE: WHAT I WOULD BUILD NEXT IF I HAD MORE TIME
 
 - **User Profile & Settings:** Allow users to update their profile, change password, and manage notification preferences.
 - **Task Reminders & Notifications:** Add due dates and send reminders for upcoming or overdue tasks.
@@ -53,5 +44,6 @@
 - **CI/CD:** Automate deployment and testing with GitHub Actions or similar.
 
 
+## DEPLOYED APP LINK
 
-
+https://task-manager-client-ylr8.onrender.com

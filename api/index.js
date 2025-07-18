@@ -1,9 +1,21 @@
 const express = require('express');
 const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const cors = require('cors');
+
 require('dotenv').config();
 
 const app = express();
+
+const allowedOrigins = [
+    'https://task-manager-client-ylr8.onrender.com',
+  ];
+  
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true,
+}));
+
 
 const PORT = process.env.PORT || 8000;
 
