@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const instance = axios.create();
+const instance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL
+});
 
 instance.interceptors.request.use(
   (config) => {
