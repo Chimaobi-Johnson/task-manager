@@ -1,6 +1,7 @@
 "use client"
 
 import { useAuth } from "@/context/authContext";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -104,7 +105,7 @@ const RegisterContainer = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors font-semibold disabled:opacity-60"
+          className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded hover:bg-blue-700 transition-colors font-semibold disabled:opacity-60"
           disabled={authLoading}
         >
           {authLoading ? "Registering..." : "Register"}

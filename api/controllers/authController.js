@@ -5,7 +5,6 @@ const User = require('../../models/User');
 exports.register = async (req, res) => {
   await dbConnect();
   const { email, password } = req.body;
-  console.log('requse ', req.body);
   try {
     const user = await User.create({ email, password });
     const token = signToken(user);
