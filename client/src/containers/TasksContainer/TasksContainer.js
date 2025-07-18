@@ -59,7 +59,7 @@ const TasksContainer = () => {
   ];
 
   return (
-    <div className="max-w-xl mx-auto mt-12 p-6 bg-white border border-gray-300 rounded-lg">
+    <div className="md:max-w-xl mx-auto mt-12 p-6 bg-white md:border border-gray-300 rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-center">My Tasks</h2>
       <form onSubmit={handleAddTask} className="flex mb-6 gap-2">
         <input
@@ -77,12 +77,12 @@ const TasksContainer = () => {
           <FiPlus /> Add
         </button>
       </form>
-      {tasksLoading && <div className="text-center text-gray-500">Loading tasks...</div>}
+      {tasksLoading && <div className="text-center text-gray-500">Updating tasks...</div>}
       {tasksError && <div className="text-center text-red-500">{tasksError}</div>}
       <ul className="space-y-4">
         {sortedTasks.map((task, i) => (
           <TaskItem
-            key={task._id || task.id || i}
+            key={task._id}
             editingId={editingId}
             task={task}
             handleToggleDone={() => handleToggleDone(task._id, task.status === "done")}

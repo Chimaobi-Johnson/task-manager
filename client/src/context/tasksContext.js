@@ -1,7 +1,7 @@
 "use client";
 
+import instance from "@/lib/axios";
 import { createContext, useContext, useState, useCallback } from "react";
-import axios from "axios";
 
 const TasksContext = createContext();
 
@@ -15,7 +15,7 @@ export const TasksProvider = ({ children }) => {
     setTasksLoading(true);
     setTasksError("");
     try {
-      const res = await axios.get("/api/tasks/get");
+      const res = await instance.get("/api/tasks/get");
       setTasks(res.data.tasks || []);
       return { success: true, data: res.data.tasks };
     } catch (err) {
@@ -31,7 +31,7 @@ export const TasksProvider = ({ children }) => {
     setTasksLoading(true);
     setTasksError("");
     try {
-      const res = await axios.post("/api/tasks/create", taskData);
+      const res = await instance.post("/api/tasks/create", taskData);
       setTasks((prev) => [...prev, res.data.task]);
       return { success: true, data: res.data.task };
     } catch (err) {
@@ -47,7 +47,7 @@ export const TasksProvider = ({ children }) => {
     setTasksLoading(true);
     setTasksError("");
     try {
-      const res = await axios.put(`/api/tasks/${id}`, updates);
+      const res = await instance.put(`/api/tasks/${id}`, updates);
       setTasks((prev) => prev.map((t) => (t._id === id ? res.data.task : t)));
       return { success: true, data: res.data.task };
     } catch (err) {
@@ -63,7 +63,7 @@ export const TasksProvider = ({ children }) => {
     setTasksLoading(true);
     setTasksError("");
     try {
-      await axios.delete(`/api/tasks/${id}`);
+      await instance.delete(`/api/tasks/${id}`);
       setTasks((prev) => prev.filter((t) => t._id !== id));
       return { success: true };
     } catch (err) {

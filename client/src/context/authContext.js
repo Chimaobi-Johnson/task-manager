@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import instance from "@/lib/axios";
 
 const AuthContext = createContext();
 
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     setAuthLoading(true);
     setAuthError("");
     try {
-      const result = await axios.post("/api/auth/register", { email, password });
+      const result = await instance.post("/api/auth/register", { email, password });
       setUser(result.data.user || null);
       if (result.data.token) {
         localStorage.setItem("token", result.data.token);
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     setAuthLoading(true);
     setAuthError("");
     try {
-      const result = await axios.post("/api/auth/login", { email, password });
+      const result = await instance.post("/api/auth/login", { email, password });
       setUser(result.data.user || null);
       if (result.data.token) {
         localStorage.setItem("token", result.data.token);
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
   // Logout function
   const logout = async () => {
     try {
-      await axios.post("/api/auth/logout"); // Optional: inform backend
+      await instance.post("/api/auth/logout"); // Optional: inform backend
     } catch (e) {}
     localStorage.removeItem("token");
     setUser(null);
