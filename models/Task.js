@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema({
     default: 'pending',
   },
   extras: {
-    type: mongoose.Schema.Types.Mixed, // Can store JSON like { tags, dueDate, priority }
+    type: mongoose.Schema.Types.Mixed, // { tags, dueDate, priority }
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

@@ -40,7 +40,7 @@ const RegisterContainer = () => {
       setPassword("");
       setTimeout(() => {
         router.push('/')
-      }, 2000);
+      }, 1000);
     }
   };
 

@@ -25,3 +25,8 @@ exports.login = async (req, res) => {
   const token = signToken(user);
   res.json({ token, user: { id: user._id, email: user.email } });
 };
+
+exports.logout = async (req, res) => {
+  // For stateless JWT, logout is handled on the client by deleting the token
+  res.json({ message: 'Logged out successfully' });
+};
